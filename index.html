@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TLHP</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- <img src="http://localhost:3000/proxy-image?url=https://en.toutlehautparleur.com/media/catalog/product/cache/15/thumbnail/180x/0d6738d89f9d50f3a1fb4aaef58a9202/l/1/l15p200ak-4.jpg" alt="Randommm"> -->
+    <nav>
+        <a href="/" class="logo">
+            <img src="/images/logo.png" alt="logo">
+        </a>
+        <div class="nav__links">
+            <a href="/">Home</a>
+            <a href="#">About</a>
+            <a href="/contact.html">Contact</a>
+        </div>
+        <form class="search-items">
+            <input type="text" placeholder="Type item and hit search">
+            <button>Search</button>
+        </form>
+    </nav>
+    <div class="products-listing">
+        <img src="/images/loading.gif" alt="loading products...">
+    </div>
+
+    <script>
+        const productsListingContainer = document.querySelector('.products-listing')
+        const baseURL = 'http://localhost:3000'
+
+        async function getProds () {
+            // const products = await fetch('https://en.toutlehautparleur.com/searchautocomplete/ajax/get/')
+            
+            await fetch(`https://en.toutlehautparleur.com/catalogsearch/result/index/?limit=16&q=`)
+                .then(res => res.text())
+                .then(html => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    const categoryProductsDiv = doc.querySelector('.category-products');
+                    
+                    console.log(categoryProductsDiv);
+                    removeElements(categoryProductsDiv, '.limiter')
+                    removeElements(categoryProductsDiv, '.sort-by')
+                    categoryProductsDiv.querySelectorAll('img').forEach(img => {
+                        const src = img.getAttribute('src')
+                        img.src = `${baseURL}/proxy-image?url=${src}`
+                    })
+                    console.log();
+                    
+                    const retrieveData = convertTableToCard(categoryProductsDiv.querySelectorAll("div[style='margin-top:10px;'] table"))
+
+                    console.log(retrieveData);
+                    
+                    
+                    categoryProductsDiv.querySelector("div[style='margin-top:10px;']").innerHTML = retrieveData.map(data => {
+                        return `
+                            <div class="product-card">
+                                <img src="${data.img}" alt="${data.title}">
+                                <h3>${data.title}</h3>
+                                <p>${data.desc}</p>
+                                <a href="${data.link}">View Product</a>
+                            </div>
+                        `
+                    }).join('')
+                    
+                    productsListingContainer.innerHTML = categoryProductsDiv.outerHTML
+                }).catch(err => {
+                    console.error(err)
+                    productsListingContainer.innerHTML = `<h3>Something went wrong</h3>`
+                })
+        }
+        getProds()
+
+        function removeElements(elementDiv, className) {
+            elementDiv.querySelector(className).remove()
+        }
+
+        function convertTableToCard(divWithTables) {
+            const data = []
+            divWithTables.forEach(table => {
+                let obj = {}
+                const title = table.querySelector('h3 a').textContent.replace(/[\t\n]/g, '')
+                const link = table.querySelector('a').getAttribute('href')
+                const img = table.querySelector('img').getAttribute('src')
+                const desc = table.querySelector('.desc-block-initial').textContent.replace(/[\t\n]/g, '')
+
+                obj.title = title
+                obj.link = link
+                obj.img = img
+                obj.desc = truncateString(desc)
+
+                data.push(obj)
+            })
+
+            return data
+        }
+
+        function truncateString(str) {
+            if (str.length > 70) {
+                return str.slice(0, 70) + '...';
+            }
+            return str;
+        }
+    </script>
+</body>
+</html>
