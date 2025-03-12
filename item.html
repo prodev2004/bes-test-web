@@ -135,7 +135,7 @@
             priceUnit.textContent = product['price-unit'];
           }
           if (!product['product-image']) {
-            productImage.src = '/frontend/images/no-image-available.jpg';
+            productImage.src = 'images/no-image-available.jpg';
           } else {
             productImage.src = `${baseURL}/proxy-image?url=${replaceImg(product['product-image'])}`
           }
