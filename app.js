@@ -1,7 +1,7 @@
 const urlParams = new URLSearchParams(window.location.search);
 const queryParam = urlParams.get('search');
 const currentPage = urlParams.get('page');
-const baseURL = 'http://localhost:3000';
+const baseURL = 'https://best-test-web-back.onrender.com';
 
 if (!queryParam) {
     document.querySelector('.no-search').classList.remove('hide-section')
@@ -86,7 +86,7 @@ function showProducts(products) {
 
     productsContainer.innerHTML = products.map(product => {
         return `
-            <a href="/frontend/item.html?id=${product['id']}" class="product-card">
+            <a href="item.html?id=${product['id']}" class="product-card">
                 <p class="availability">${product['availability'] || 'In Stock'}</p>
                 <div class="product-card-image-wrapper">
                     <img src="${baseURL}/proxy-image?url=${replaceImg(product['product-image'])}" alt="${product['product_model']}">
@@ -102,7 +102,7 @@ function showProducts(products) {
 
 function replaceImg(src) {
     if (src.includes('placeholder/default/default_base_3.jpg')) {
-        return `http://localhost:5500/frontend/images/no-image-available.jpg`
+        return `https://bes-test-web.onrender.com/images/no-image-available.jpg`
     } else {
         return src
     }
