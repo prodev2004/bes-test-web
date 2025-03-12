@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>BES Searching Engine</title>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo">
+                <h4>Bes</h4>
+            </a>
+            <ul class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="brands.html">Brands</a>
+                <a href="speakers.html">Speakers</a>
+                <a href="search.html?search=amplifier&page=1">Amplifiers</a>
+                <a href="search.html?search=kart&page=1" class="active">Products</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </ul>
+            <div class="hide-mobile-nav"></div>
+            <div class="burger">
+              <div class="line line1"></div>
+              <div class="line line2"></div>
+              <div class="line line3"></div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="filtering-section">
+        <div class="container">
+            <form class="header-search-container" action="/frontend/search.html">
+                <h2>Start searching what you need</h2>
+                <div class="search-wrapper">
+                    <input type="text" placeholder="Search for products" name="search">
+                    <input type="text" hidden name="page" value="1">
+                    <button>Search</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <section class="products-listing-section">
+        <div class="container">
+            <div class="pagination-section">
+                <p>Page: </p>
+                <a href="#" class="page-link prev">Prev</a>
+                <!-- <a href="#" class="page-link page active">1</a>
+                <a href="#" class="page-link page">2</a> -->
+                <a href="#" class="page-link next">Next</a>
+            </div>
+            <div class="products-listing">
+                <!-- <a href="#" class="product-card">
+                    <p class="availability">In Stock</p>
+                    <div class="product-card-image-wrapper">
+                        <img src="https://unsplash.it/300/400" alt="Speaker 1">
+                    </div>
+                    <div class="product-info">
+                        <h3>LaVoceR-SSF102.40-4</h3>
+                        <p>VRK06100</p>
+                    </div>
+                </a> -->
+            </div>
+        </div>
+    </section>
+
+    <section class="loading-products">
+        <div class="container">
+            <!-- <h2>Loading products...</h2> -->
+            <img src="images/loading.gif" alt="Loading products">
+        </div>
+    </section>
+
+    <section class="no-search">
+        <div class="container">
+            <h2>Your search is empty!</h2>
+            <p>Try searching for something...</p>
+        </div>
+    </section>
+
+    <section class="no-items-to-show">
+        <div class="container">
+            <h2>No items to show for this search. SORRY!</h2>
+            <p>Try searching for something else...</p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+          <div class="footer-section">
+            <h3>About Us</h3>
+            <p>Your go-to store for high-quality speakers and audio components.</p>
+          </div>
+          <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="brands.html">Brands</a></li>
+                <li><a href="speakers.html">Speakers</a></li>
+                <li><a href="search.html?search=amplifier&page=1">Amplifiers</a></li>
+                <li><a href="search.html?search=kart&page=1">Products</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Contact Us</h3>
+            <p>Email: support@yourwebsite.com</p>
+            <p>Phone: +XX XXXX XXXX</p>
+          </div>
+          <div class="footer-section">
+            <h3>Follow Us</h3>
+            <div class="social-icons">
+              <!-- <a href="#"><img src="facebook-icon.png" alt="Facebook"></a>
+              <a href="#"><img src="instagram-icon.png" alt="Instagram"></a>
+              <a href="#"><img src="twitter-icon.png" alt="Twitter"></a> -->
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2025 BES. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script src="navbar.js"></script>
+</body>
+</html>

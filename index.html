@@ -3,106 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TLHP</title>
     <link rel="stylesheet" href="style.css">
+    <title>Bes</title>
 </head>
 <body>
-    <img src="https://best-test-web-back.onrender.com/proxy-image?url=https://en.toutlehautparleur.com/media/catalog/product/cache/15/thumbnail/180x/0d6738d89f9d50f3a1fb4aaef58a9202/l/1/l15p200ak-4.jpg" alt="Randommm">
     <nav>
-        <a href="/" class="logo">
-            <img src="/images/logo.png" alt="logo">
-        </a>
-        <div class="nav__links">
-            <a href="/">Home</a>
-            <a href="#">About</a>
-            <a href="/contact.html">Contact</a>
+        <div class="container">
+            <a href="index.html" class="logo">
+                <h4>Bes</h4>
+            </a>
+            <ul class="nav-links">
+                <a href="index.html" class="active">Home</a>
+                <a href="brands.html">Brands</a>
+                <a href="speakers.html">Speakers</a>
+                <a href="search.html?search=amplifier&page=1">Amplifiers</a>
+                <a href="search.html?search=kart&page=1">Products</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </ul>
+            <div class="hide-mobile-nav"></div>
+            <div class="burger">
+              <div class="line line1"></div>
+              <div class="line line2"></div>
+              <div class="line line3"></div>
+            </div>
         </div>
-        <form class="search-items">
-            <input type="text" placeholder="Type item and hit search">
-            <button>Search</button>
-        </form>
     </nav>
-    <div class="products-listing">
-        <img src="/images/loading.gif" alt="loading products...">
-    </div>
 
-    <script>
-        const productsListingContainer = document.querySelector('.products-listing')
-        const baseURL = 'https://best-test-web-back.onrender.com'
+    <header class="header">
+        <div class="container">
+            <img src="images/speakers.png" class="header-bcg" alt="Header Image">
+            <div class="header-content">
+                <h1>Welcome to BES</h1>
+                <p>
+                    For over 10 years, we’ve been dedicated to providing the best selection of speakers and audio components. <br> <br>
+                    We offer a massive range of over 14,000 products with a spacious warehouse to ensure fast shipping and availability.
+                </p>
 
-        async function getProds () {
-            // const products = await fetch('https://en.toutlehautparleur.com/searchautocomplete/ajax/get/')
-            
-            await fetch(`https://en.toutlehautparleur.com/catalogsearch/result/index/?limit=16&q=`)
-                .then(res => res.text())
-                .then(html => {
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(html, 'text/html');
-                    const categoryProductsDiv = doc.querySelector('.category-products');
-                    
-                    console.log(categoryProductsDiv);
-                    removeElements(categoryProductsDiv, '.limiter')
-                    removeElements(categoryProductsDiv, '.sort-by')
-                    categoryProductsDiv.querySelectorAll('img').forEach(img => {
-                        const src = img.getAttribute('src')
-                        img.src = `${baseURL}/proxy-image?url=${src}`
-                    })
-                    console.log();
-                    
-                    const retrieveData = convertTableToCard(categoryProductsDiv.querySelectorAll("div[style='margin-top:10px;'] table"))
+                <form class="header-search-container" action="/frontend/search.html">
+                    <h2>Start searching what you need</h2>
+                    <div class="search-wrapper">
+                        <input type="text" placeholder="Search for products" name="search">
+                        <input type="text" hidden name="page" value="1">
+                        <button>Search</button>
+                    </div>
+                </form>
 
-                    console.log(retrieveData);
-                    
-                    
-                    categoryProductsDiv.querySelector("div[style='margin-top:10px;']").innerHTML = retrieveData.map(data => {
-                        return `
-                            <div class="product-card">
-                                <img src="${data.img}" alt="${data.title}">
-                                <h3>${data.title}</h3>
-                                <p>${data.desc}</p>
-                                <a href="${data.link}">View Product</a>
-                            </div>
-                        `
-                    }).join('')
-                    
-                    productsListingContainer.innerHTML = categoryProductsDiv.outerHTML
-                }).catch(err => {
-                    console.error(err)
-                    productsListingContainer.innerHTML = `<h3>Something went wrong</h3>`
-                })
-        }
-        getProds()
+                <div class="certificates">
+                    <img src="images/satisfaction.png" alt="">
+                    <img src="images/ssl.png" alt="">
+                </div>
+            </div>
+        </div>
+    </header>
 
-        function removeElements(elementDiv, className) {
-            elementDiv.querySelector(className).remove()
-        }
+    <footer>
+        <div class="footer-container">
+          <div class="footer-section">
+            <h3>About Us</h3>
+            <p>Your go-to store for high-quality speakers and audio components.</p>
+          </div>
+          <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="brands.html">Brands</a></li>
+              <li><a href="speakers.html">Speakers</a></li>
+              <li><a href="search.html?search=amplifier&page=1">Amplifiers</a></li>
+              <li><a href="search.html?search=kart&page=1">Products</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Contact Us</h3>
+            <p>Email: support@yourwebsite.com</p>
+            <p>Phone: +XX XXXX XXXX</p>
+          </div>
+          <div class="footer-section">
+            <h3>Follow Us</h3>
+            <div class="social-icons">
+              <a href="#"><img src="facebook-icon.png" alt="Facebook"></a>
+              <a href="#"><img src="instagram-icon.png" alt="Instagram"></a>
+              <a href="#"><img src="twitter-icon.png" alt="Twitter"></a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2025 BES. All rights reserved.</p>
+        </div>
+    </footer>
 
-        function convertTableToCard(divWithTables) {
-            const data = []
-            divWithTables.forEach(table => {
-                let obj = {}
-                const title = table.querySelector('h3 a').textContent.replace(/[\t\n]/g, '')
-                const link = table.querySelector('a').getAttribute('href')
-                const img = table.querySelector('img').getAttribute('src')
-                const desc = table.querySelector('.desc-block-initial').textContent.replace(/[\t\n]/g, '')
-
-                obj.title = title
-                obj.link = link
-                obj.img = img
-                obj.desc = truncateString(desc)
-
-                data.push(obj)
-            })
-
-            return data
-        }
-
-        function truncateString(str) {
-            if (str.length > 70) {
-                return str.slice(0, 70) + '...';
-            }
-            return str;
-        }
-    </script>
+    <script src="navbar.js"></script>
 </body>
 </html>

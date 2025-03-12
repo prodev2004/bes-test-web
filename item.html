@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Item Page</title>
+</head>
+<body>
+    <nav>
+      <div class="container">
+          <a href="index.html" class="logo">
+              <h4>Bes</h4>
+          </a>
+          <ul class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="brands.html">Brands</a>
+            <a href="speakers.html">Speakers</a>
+            <a href="search.html?search=amplifier&page=1">Amplifiers</a>
+            <a href="search.html?search=kart&page=1">Products</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+          </ul>
+          <div class="hide-mobile-nav"></div>
+            <div class="burger">
+              <div class="line line1"></div>
+              <div class="line line2"></div>
+              <div class="line line3"></div>
+            </div>
+      </div>
+    </nav>
+
+    <section class="single-item-section">
+        <div class="container">
+            <div class="single-item-wrapper">
+                <div class="item-image">
+                    <img src="https://unsplash.it/600/800" alt="item">
+                </div>
+                <div class="item-details">
+                    <p class="availability">In Stock</p>
+                    <h2>Item Name</h2>
+                    <p class="vat-status">IT</p>
+                    <p>Price Unit: <span class="price-unit">Piece</span></p>
+                    <p class="short-desc">Short Description</p>
+                    <p class="detailed_description">Detailed Description</p>
+                    <p>Technical Specs: <span class="technical_specs">technical specs</span></p>
+                    <a href="#" class="purchase-btn" target="_blank">I want to buy!</a>
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+          <div class="footer-section">
+            <h3>About Us</h3>
+            <p>Your go-to store for high-quality speakers and audio components.</p>
+          </div>
+          <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">About</a></li>
+              <li><a href="#">Products</a></li>
+              <li><a href="#">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Contact Us</h3>
+            <p>Email: support@yourwebsite.com</p>
+            <p>Phone: +XX XXXX XXXX</p>
+          </div>
+          <div class="footer-section">
+            <h3>Follow Us</h3>
+            <div class="social-icons">
+              <!-- <a href="#"><img src="facebook-icon.png" alt="Facebook"></a>
+              <a href="#"><img src="instagram-icon.png" alt="Instagram"></a>
+              <a href="#"><img src="twitter-icon.png" alt="Twitter"></a> -->
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2025 BES. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+      const baseURL = 'http://localhost:3000';
+
+        async function fetchProducts() {
+          const response = await fetch('data/merged_data.json');
+          const products = await response.json();
+
+          const urlParams = new URLSearchParams(window.location.search);
+          const productId = urlParams.get('id');
+
+          const product = products.find(product => product.id == productId);
+          console.log(product);
+          
+          checkFields(product)
+        }
+
+        fetchProducts()
+
+        function checkFields(product) {
+          const availability = document.querySelector('.availability');
+          const productModel = document.querySelector('.item-details h2');
+          const vatStatus = document.querySelector('.vat-status');
+          const priceUnit = document.querySelector('.price-unit');
+          const productImage = document.querySelector('.item-image img');
+          const shortDescription = document.querySelector('.short-desc');
+          const technicalSpecs = document.querySelector('.technical_specs');
+          const detailedDescription = document.querySelector('.detailed_description');
+          const purchaseBtn = document.querySelector('.purchase-btn');
+
+          if (!product.availability) {
+            availability.style.display = 'none';
+          } else {
+            availability.textContent = product.availability;
+          }
+          if (!product.product_model) {
+            productModel.style.display = 'none';
+          } else {
+            productModel.textContent = product.product_model;
+          }
+          if (!product['vat-status']) {
+            vatStatus.style.display = 'none';
+          } else {
+            vatStatus.textContent = product['vat-status'];
+          }
+          if (!product['price-unit']) {
+            priceUnit.parentElement.style.display = 'none';
+          } else {
+            priceUnit.textContent = product['price-unit'];
+          }
+          if (!product['product-image']) {
+            productImage.src = '/frontend/images/no-image-available.jpg';
+          } else {
+            productImage.src = `${baseURL}/proxy-image?url=${replaceImg(product['product-image'])}`
+          }
+          if (!product.short_desc) {
+            shortDescription.style.display = 'none';
+          } else {
+            shortDescription.textContent = product.short_desc;
+          }
+          if (!product.detailed_description) {
+            detailedDescription.style.display = 'none';
+          } else {
+            detailedDescription.textContent = product.detailed_description;
+          }
+          if (!product.technical_specs) {
+            technicalSpecs.parentElement.style.display = 'none';
+          } else {
+            technicalSpecs.textContent = product.technical_specs;
+          }
+
+          purchaseBtn.href = `https://wa.me/${+38345832134}?text=${encodeURIComponent(`Hello there, I'm interested to purchase ${window.location.href}`)}`
+        }
+
+        function replaceImg(src) {
+            if (src.includes('placeholder/default/default_base_3.jpg')) {
+                return `http://localhost:5500/frontend/images/no-image-available.jpg`
+            } else {
+                return src
+            }
+        }
+    </script>
+    <script src="navbar.js"></script>
+</body>
+</html>
