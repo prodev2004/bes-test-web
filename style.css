@@ -445,6 +445,16 @@ footer {
 .single-item-section .item-details .purchase-btn:active {
     transform: scale(.95);
 }
+@media (max-width: 800px) {
+    .single-item-wrapper {
+        flex-direction: column;
+    }
+}
+@media (max-width: 500px) {
+    .single-item-wrapper .item-image {
+        min-width: 100%;
+    }
+}
 /* SINGLE ITEM PAGE */
 
 
