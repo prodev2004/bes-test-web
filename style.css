@@ -591,3 +591,41 @@ footer {
     color: #7878ff;
 }
 /* ABOUT SECTION */
+
+
+/* CONTACT SECTION */
+.contact-section {
+    color: #fff;
+}
+.contact-section .contact-infos {
+    margin-top: 30px;
+}
+.contact-section .contact-infos .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+    text-decoration: none;
+    margin-bottom: 20px;
+}
+.contact-section .contact-infos .contact-item img {
+    width: 50px;
+}
+.contact-section .contact-infos .contact-item h2:hover {
+    color: #f1356d;
+}
+.contact-section .faq {
+    margin-top: 15px;
+}
+@media (max-width: 470px) {
+    .contact-section .contact-infos .contact-item {
+        font-size: 13px;
+    }
+    .contact-section .contact-infos .contact-item img {
+        width: 35px;
+    }
+    .contact-section .faq h2 {
+        font-size: 20px;
+    }
+}
+/* CONTACT SECTION */
